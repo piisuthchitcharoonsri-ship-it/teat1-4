@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>หน้าแลนดิ้งเริ่มต้น | ตัวอย่างเว็บไซต์</title>
+  <meta name="description" content="เทมเพลต HTML แบบหน้าเดียว ใช้งานง่าย ปรับแก้ได้เร็ว เหมาะกับสินค้า/บริการ/พอร์ตโฟลิโอ" />
+  <meta name="robots" content="index,follow" />
+  <!-- Open Graph (สำหรับแชร์ลงโซเชียล) -->
+  <meta property="og:title" content="หน้าแลนดิ้งเริ่มต้น" />
+  <meta property="og:description" content="เทมเพลต HTML แบบหน้าเดียว ใช้งานง่าย ปรับแก้ได้เร็ว" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://via.placeholder.com/1200x630.png?text=Preview+Image" />
+  <meta property="og:url" content="https://example.com" />
+    <link rel="stylesheet" href="gpt.css" />
+  <style>
+    :root{
+      --bg:#0b1020;
+      --card:#121838;
+      --muted:#9aa3b2;
+      --primary:#5b8cff;
+      --primary-2:#7dd3fc;
+      --accent:#34d399;
+      --text:#e6e9ef;
+      --ring: 0 0 0 3px rgba(91,140,255,.25);
+      --radius: 1.25rem;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--text); background: radial-gradient(1200px 600px at 10% 0%, #101632 0%, #0b1020 60%);
+      line-height:1.6;
+    }
+    a{color:inherit; text-decoration:none}
+    .container{max-width:1100px; margin-inline:auto; padding:0 1.25rem}
+    .btn{display:inline-flex; align-items:center; gap:.5rem; border:1px solid transparent; border-radius:999px; padding:.8rem 1.15rem; font-weight:600; cursor:pointer; transition:transform .12s ease, box-shadow .15s ease, background .2s ease}
+    .btn:focus-visible{outline:none; box-shadow:var(--ring)}
+    .btn-primary{background:linear-gradient(135deg, var(--primary), var(--primary-2)); color:#0b1020}
+    .btn-primary:hover{transform:translateY(-1px)}
+    .btn-ghost{background:transparent; border-color:#2a335a; color:var(--text)}
+    header{position:sticky; top:0; backdrop-filter:saturate(140%) blur(8px); background:rgba(10,14,30,.6); border-bottom:1px solid #1b2144; z-index:20}
+    .nav{display:flex; align-items:center; justify-content:space-between; gap:1rem; height:64px}
+    .logo{display:flex; align-items:center; gap:.6rem; font-weight:800; letter-spacing:.3px}
+    .logo-badge{width:28px; height:28px; border-radius:8px; background:linear-gradient(135deg, var(--primary), var(--accent)); display:grid; place-items:center; font-size:.9rem; color:#0b1020}
+    .nav-links{display:flex; gap:1rem}
+
+    /* Hero */
+    .hero{position:relative; padding:72px 0 40px; overflow:hidden}
+    .hero-grid{display:grid; grid-template-columns:1.2fr .8fr; gap:2rem; align-items:center}
+    .pill{display:inline-flex; align-items:center; gap:.5rem; border:1px solid #26305c; background:rgba(18,24,56,.6); color:var(--muted); padding:.4rem .7rem; border-radius:999px; font-size:.85rem}
+    h1{font-size:clamp(2rem, 4vw + .5rem, 3.4rem); line-height:1.15; margin:.6rem 0 1rem}
+    .lead{font-size:1.1rem; color:#cbd5e1; max-width:60ch}
+    .hero-card{background:linear-gradient(180deg, rgba(18,24,56,.8), rgba(12,18,40,.7)); border:1px solid #1d2550; border-radius:var(--radius); padding:1.25rem}
+    .stats{display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:1rem}
+    .stat{background:rgba(16,22,48,.7); border:1px solid #1a2147; border-radius:1rem; padding:1rem; text-align:center}
+    .stat b{font-size:1.5rem}
+
+    /* Features */
+    section{padding:56px 0}
+    .section-head{display:flex; align-items:end; justify-content:space-between; gap:1rem; margin-bottom:1.2rem}
+    .kicker{color:var(--muted); letter-spacing:.08em; font-weight:700; text-transform:uppercase; font-size:.8rem}
+    .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:1rem}
+    .card{background:linear-gradient(180deg, rgba(18,24,56,.65), rgba(12,18,40,.6)); border:1px solid #1d2550; border-radius:var(--radius); padding:1rem}
+    .card h3{margin:.2rem 0 .4rem}
+
+    /* Gallery */
+    .gallery{display:grid; grid-template-columns:2fr 1fr 1fr; grid-auto-rows:180px; gap:1rem}
+    .gallery img{width:100%; height:100%; object-fit:cover; border-radius:1rem; border:1px solid #1b2144}
+    .gallery a{position:relative}
+    .gallery a::after{content:"ดูรายละเอียด"; position:absolute; inset:auto 8px 8px auto; background:rgba(11,16,32,.7); border:1px solid #27305a; padding:.25rem .5rem; border-radius:.6rem; font-size:.8rem}
+
+    /* Pricing / Products */
+    .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:1rem}
+    .price{font-size:2rem; font-weight:800}
+
+    /* CTA */
+    .cta{background:radial-gradient(600px 300px at 90% 0%, rgba(52,211,153,.2), transparent 70%), linear-gradient(180deg, rgba(18,24,56,.8), rgba(12,18,40,.6)); border:1px solid #1b2144; border-radius:var(--radius); padding:2rem; text-align:center}
+
+    /* Footer */
+    footer{border-top:1px solid #1b2144; color:#b9c1cf}
+
+    /* Responsive */
+    @media (max-width: 960px){
+      .hero-grid{grid-template-columns:1fr;}
+      .stats{grid-template-columns:repeat(3, minmax(0,1fr))}
+      .cards, .grid-3{grid-template-columns:repeat(2,1fr)}
+      .gallery{grid-template-columns:1fr 1fr;}
+    }
+    @media (max-width: 640px){
+      .nav-links{display:none}
+      .cards, .grid-3{grid-template-columns:1fr}
+      .gallery{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <!-- เฮดเดอร์ & นำทาง -->
+  <header>
+    <div class="container nav">
+      <a class="logo" href="#">
+        <span class="logo-badge">★</span>
+        <span>BrandName</span>
+      </a>
+      <nav class="nav-links" aria-label="หลัก">
+        <a href="#features">คุณสมบัติ</a>
+        <a href="#gallery">แกลเลอรี</a>
+        <a href="#pricing">แพ็กเกจ</a>
+        <a href="#contact">ติดต่อ</a>
+      </nav>
+      <a class="btn btn-ghost" href="#contact">เข้าสู่ระบบ</a>
+    </div>
+  </header>
+
+  <!-- ฮีโร่ -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="pill">✨ เทมเพลต HTML หน้าเดียว — แก้ไขได้ไว</span>
+        <h1>สร้างหน้าเว็บที่ดู <span style="background:linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip:text; background-clip:text; color:transparent">โปร</span> ภายในไม่กี่นาที</h1>
+        <p class="lead">เริ่มต้นโปรเจกต์ของคุณด้วยโครงสร้างที่คิดมาแล้ว ทั้งส่วนหัว ฮีโร่ ฟีเจอร์ แกลเลอรี สินค้า/ราคา ฟอร์มติดต่อ และฟุตเตอร์ ปรับข้อความ/รูปภาพได้ทันที</p>
+        <div style="display:flex; gap:.75rem; margin-top:1rem">
+          <a class="btn btn-primary" href="#pricing">ดูแพ็กเกจ</a>
+          <a class="btn btn-ghost" href="#features">ดูฟีเจอร์</a>
+        </div>
+        <div class="stats">
+          <div class="stat"><b>+120</b><div>โปรเจกต์ที่ใช้เทมเพลตนี้</div></div>
+          <div class="stat"><b>~30 นาที</b><div>เฉลี่ยเวลาขึ้นเว็บ</div></div>
+          <div class="stat"><b>SEO</b><div>โครงสร้างพร้อมต่อยอด</div></div>
+        </div>
+      </div>
+
+      <aside class="hero-card" aria-label="การ์ดไฮไลต์">
+        <h2 style="margin:.2rem 0 .6rem">จุดเด่น</h2>
+        <ul style="margin:0; padding-left:1rem">
+          <li>โค้ดสะอาด ใช้แท็ก semantic</li>
+          <li>ดีไซน์เข้ม สมัยใหม่ ปรับสีง่าย</li>
+          <li>รองรับมือถือ (Responsive)</li>
+          <li>พร้อมเมตาแท็กสำหรับแชร์</li>
+        </ul>
+        <div style="margin-top:1rem; display:grid; gap:.6rem">
+          <label style="display:flex; align-items:center; gap:.5rem"><input type="checkbox" checked> เปิดใช้งานเอฟเฟกต์พื้นหลัง</label>
+          <label style="display:flex; align-items:center; gap:.5rem"><input type="checkbox" checked> เปิดใช้งานส่วนฮีโร่</label>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ฟีเจอร์ -->
+  <section id="features">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Features</div>
+          <h2 style="margin:.25rem 0">คุณสมบัติหลัก</h2>
+        </div>
+        <a class="btn btn-ghost" href="#">เอกสารการใช้งาน</a>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <h3>โหลดไว</h3>
+          <p>ไม่พึ่งพาไลบรารีภายนอก หนึ่งไฟล์ก็พอ พร้อมใช้งานทันที</p>
+        </article>
+        <article class="card">
+          <h3>ปรับแต่งง่าย</h3>
+          <p>จัดโครงสร้างเรียบร้อย ค้นหา/แก้ส่วนต่าง ๆ ได้รวดเร็ว</p>
+        </article>
+        <article class="card">
+          <h3>เข้าถึงได้</h3>
+          <p>ใช้แท็ก semantic ใส่ aria-label เท่าที่จำเป็น ช่วยด้าน Accessibility</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- แกลเลอรี -->
+  <section id="gallery">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Gallery</div>
+          <h2 style="margin:.25rem 0">แกลเลอรีผลงาน</h2>
+        </div>
+        <a class="btn btn-ghost" href="#">ดูทั้งหมด</a>
+      </div>
+
+      <div class="gallery">
+        <a href="#"><img src="https://images.unsplash.com/photo-1520975922192-2208d157c9e2?q=80&w=1200&auto=format&fit=crop" alt="ภาพตัวอย่าง 1"></a>
+        <a href="#"><img src="https://images.unsplash.com/photo-1512295767273-ac109ac3acfa?q=80&w=1200&auto=format&fit=crop" alt="ภาพตัวอย่าง 2"></a>
+        <a href="#"><img src="https://images.unsplash.com/photo-1551537482-f2075a1d41f2?q=80&w=1200&auto=format&fit=crop" alt="ภาพตัวอย่าง 3"></a>
+        <a href="#"><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1200&auto=format&fit=crop" alt="ภาพตัวอย่าง 4"></a>
+        <a href="#"><img src="https://images.unsplash.com/photo-1498049794561-7780e7231661?q=80&w=1200&auto=format&fit=crop" alt="ภาพตัวอย่าง 5"></a>
+        <a href="#"><img src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1200&auto=format&fit=crop" alt="ภาพตัวอย่าง 6"></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ราคา/สินค้า -->
+  <section id="pricing">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker">Pricing</div>
+          <h2 style="margin:.25rem 0">แพ็กเกจ</h2>
+        </div>
+        <span class="kicker">เริ่มต้นได้ทันที ปรับตามงบ</span>
+      </div>
+
+      <div class="grid-3">
+        <article class="card" aria-label="แพ็กเกจเริ่มต้น">
+          <h3>Basic</h3>
+          <p class="price">฿0</p>
+          <p>เทมเพลต HTML อย่างเดียว เหมาะกับการทดลอง</p>
+          <a class="btn btn-primary" href="#contact">เริ่มเลย</a>
+        </article>
+        <article class="card" aria-label="แพ็กเกจมาตรฐาน">
+          <h3>Standard</h3>
+          <p class="price">฿990</p>
+          <p>เพิ่มคำแนะนำ SEO + ฟอร์มติดต่อใช้งานได้จริง</p>
+          <a class="btn btn-primary" href="#contact">สั่งทำ</a>
+        </article>
+        <article class="card" aria-label="แพ็กเกจโปร">
+          <h3>Pro</h3>
+          <p class="price">฿2,900</p>
+          <p>ปรับแต่งธีม สี ฟอนต์ และส่วนเสริมตามต้องการ</p>
+          <a class="btn btn-primary" href="#contact">ปรึกษา</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ฟอร์มติดต่อ -->
+  <section id="contact">
+    <div class="container">
+      <div class="cta">
+        <h2 style="margin-top:0">ติดต่อเรา</h2>
+        <p>กรอกข้อมูลเพื่อติดต่อกลับ หรืออธิบายความต้องการของโปรเจกต์คุณ</p>
+        <form onsubmit="event.preventDefault(); alert('ส่งข้อมูลเรียบร้อย! (ตัวอย่าง)');" style="display:grid; gap:.75rem; max-width:720px; margin:1rem auto 0; text-align:left">
+          <label>ชื่อ
+            <input required name="name" placeholder="ชื่อ-นามสกุล" style="width:100%; margin-top:.25rem; padding:.8rem 1rem; border-radius:.8rem; border:1px solid #26305c; background:#0f1430; color:var(--text)" />
+          </label>
+          <label>อีเมล
+            <input required type="email" name="email" placeholder="you@example.com" style="width:100%; margin-top:.25rem; padding:.8rem 1rem; border-radius:.8rem; border:1px solid #26305c; background:#0f1430; color:var(--text)" />
+          </label>
+          <label>รายละเอียด
+            <textarea name="message" rows="4" placeholder="เล่าไอเดียของคุณ..." style="width:100%; margin-top:.25rem; padding:.8rem 1rem; border-radius:.8rem; border:1px solid #26305c; background:#0f1430; color:var(--text)"></textarea>
+          </label>
+          <div style="display:flex; gap:.75rem; align-items:center; justify-content:center">
+            <button class="btn btn-primary" type="submit">ส่งข้อความ</button>
+            <button class="btn btn-ghost" type="reset">ล้างข้อมูล</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="display:flex; gap:1rem; flex-wrap:wrap; align-items:center; justify-content:space-between; padding:24px 0">
+      <div>© <span id="year"></span> BrandName · ทำด้วย ❤ HTML + CSS</div>
+      <div style="display:flex; gap:.6rem">
+        <a href="#">ข้อกำหนดการใช้งาน</a>
+        <a href="#">นโยบายความเป็นส่วนตัว</a>
+        <a href="#">ติดต่อ</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ใส่ปีอัตโนมัติในฟุตเตอร์
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
